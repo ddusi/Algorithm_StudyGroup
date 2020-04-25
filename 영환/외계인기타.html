@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // //제출용
+        // let fs = require('fs');
+        // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
+        
+        
+        //test 용
+        const fs =`7 15
+                    1 5
+                    2 3
+                    2 5
+                    2 7
+                    2 4
+                    1 5
+                    1 3`;
+        let input = fs.split("\n");
+        
+        //본 code
+        let finger = input.map(v=>{
+            return v.trim().split(" ");
+        })
+        let guitar = [[],[],[],[],[],[]];
+        let count = 0 ;
+        for (let i = 1; i<finger.length;i++){
+            if(guitar[ finger[i][0]-1].length===0 || guitar[ finger[i][0]-1 ][ guitar[ finger[i][0]-1 ].length-1 ]<finger[i][1]){
+                guitar[ finger[i][0]-1] = guitar[ finger[i][0]-1 ].concat([ finger[i][1] ]);
+                count++;
+            }else if (guitar[ finger[i][0]-1 ][ guitar[finger[i][0]-1 ].length-1] > finger[i][1]){
+                guitar[ finger[i][0]-1 ]=guitar[ finger[i][0]-1 ].slice(0,guitar[ finger[i][0]-1 ].length-1);
+                count++;
+                i--;
+            }
+        }
+        console.log(count);
+        //여기까지 
+        document.querySelector("body").innerText+= `answer : `;
+        document.querySelector("body").innerText+= count;
+    </script>
+</body>
+</html>
