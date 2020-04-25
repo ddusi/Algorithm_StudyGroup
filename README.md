@@ -111,7 +111,7 @@
 
 ### 6. **스터디원**
 
-- 조원상 / 엄정달 / 조동영 / 김수진 / 최성준 / 박경원
+- 조원상 / 엄정달 / 조동영 / 김수진 / 최성준 / 박경원 / 설영환
 
     [ddusi](https://github.com/ddusi)
 
@@ -126,3 +126,5 @@
     [ParkKyungWon](https://github.com/ParkKyungWon)
 
     [nayoung97](https://github.com/nayoung97)
+
+    [maintainker](https://github.com/maintainker)
