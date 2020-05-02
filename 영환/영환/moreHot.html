@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+               //제출용
+        //        var fs = require('fs');
+        // var input = fs.readFileSync('/dev/stdin').toString().split("\n");
+        
+        
+        // test 용[1, 2, 3, 9, 10, 12]
+        var fs =`7
+        1
+        2
+        3
+        9
+        10
+        12`;
+        var inputs = fs.split("\n");
+        
+        // // test2 용
+        // var fs =`0 15`;
+        // var input = fs.split("\n");
+        
+        
+        //본 code
+        let count = 0; 
+        const scoville = inputs.map(function(v){
+            var array=Number(v.trim().split(" "));
+            return array;
+        })
+        let hot = scoville.slice(1);
+        console.log(scoville,hot);
+        hot.sort();
+        for(let i = 0 ;;){
+            let mix;
+            if(hot[i]>=scoville[0]){
+                break;
+            }else{
+                count++;
+                document.querySelector("body").innerHTML+= `answer : `+hot.join()+"<br>";
+                mix = hot[i] + 2* hot[i+1];
+                hot.splice(2);
+                document.querySelector("body").innerHTML+= `answer : `+hot.join()+"<br>";
+                hot = [mix].concat(hot);
+                document.querySelector("body").innerHTML+= `answer : `+hot.join()+"<br>";
+            }
+        }
+        //여기까지 
+//        document.querySelector("body").innerText+= count;
+    </script>
+</body>
+</html>
