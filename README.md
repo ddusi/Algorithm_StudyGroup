@@ -1,5 +1,16 @@
 # Algorithm 스터디 소개
 
+## PR양식
+PR 양식 꼭 지켜주세요!<br>
+**[이름]간단하고 명시적인 제목**
+```
+## 작업내용
+- 푼 문제들. 
+## 배운점 
+- 공유할만한 내용
+- 혹은 배운내용
+```
+
 ### 1. **교재**
 
 자바로 배우는 핵심 자료구조와 알고리즘 / 한빛미디어 출판사
@@ -103,7 +114,7 @@
 
 ### 6. **스터디원**
 
-- 조원상 / 엄정달 / 조동영 / 김수진 / 최성준 / 박경원
+- 조원상 / 엄정달 / 조동영 / 김수진 / 최성준 / 박경원 / 설영환
 
     [ddusi](https://github.com/ddusi)
 
@@ -118,3 +129,5 @@
     [ParkKyungWon](https://github.com/ParkKyungWon)
 
     [nayoung97](https://github.com/nayoung97)
+
+    [maintainker](https://github.com/maintainker)
