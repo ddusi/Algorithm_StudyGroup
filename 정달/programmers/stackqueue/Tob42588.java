@@ -62,7 +62,7 @@ public class Tob42588 {
     }
 
     public static void main(String[] args) {
-        int[] array = new int[]{6,9,5,7,4};
+        int[] array = new int[]{7, 5, 3, 5, 3, 5, 3};
 //        int[] array = new int[]{3,9,9,3,5,7,2};
 //        int[] array = new int[]{1,5,3,6,7,6,5};
 
