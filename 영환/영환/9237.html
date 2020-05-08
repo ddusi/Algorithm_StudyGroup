@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        
+        // //제출용
+        let fs = require('fs');
+        let input = fs.readFileSync('/dev/stdin').toString().split("\n");
+
+
+//         //test 용
+//         const fs =`4
+// 2 3 4 3`;
+
+//         // test2 용
+//         const fs =`6
+// 39 38 9 35 39 20`;
+
+
+        // const inputs = fs.split("\n");
+        const input = inputs[1].split(" ");
+        const tree = [];
+        let answer =0;
+        input.sort(function(a, b) { // 오름차순
+            return Number(b) - Number(a);
+        });
+        for(let i = 0 ; i < input.length; i++){
+            tree.push(Number(input[i])+i+1);
+        }
+        answer = Math.max.apply(null, tree)+1;
+        console.log(answer);
+        document.querySelector("body").innerHTML += "answer : " + answer;
+    </script>
+</body>
+</html>
