@@ -14,7 +14,11 @@ function solution(begin, target, words) {
                     for(let j = 0; j<newWords[i].length;j++){
                         if(node[j]!==newWords[i][j]){differ++;};
                     }
-                    if(differ===1){
+                    if(differ===1 && newWords[i] === target){
+                        visited[i] = true;
+                        que.push({word:newWords[i],times :time +1,prevWords:node});
+                        return time+1;
+                    }else if(differ===1){
                         visited[i] = true;
                         que.push({word:newWords[i],times :time +1,prevWords:node});
                     }
@@ -26,7 +30,10 @@ function solution(begin, target, words) {
                 visited[0]=true;
                 que.push({word:begin, times :0,prevWords:""}); 
             }
-            visitNode(que[i].word,que[i].times)
+            const tmp = visitNode(que[i].word,que[i].times);
+             if(tmp!==undefined){
+                 return tmp;
+             };
         }
         console.log(que);
         for(let i = 0 ; i<que.length;i++){
