@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // //제출용
+        // let fs = require('fs');
+        // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
+
+
+        //test 용
+        const fs =`50
+30
+24
+5
+28
+45
+98
+52
+60`;
+
+        let input = fs.split("\n");
+        let count =0;
+        //본 code
+        let numbers = [""].concat(input.map(v=>{
+            return Number(v);
+        }));
+        for(let i = 1 ; i<numbers.length;i++){
+            if(Math.floor(i/2)!==0 && numbers[Math.floor(i/2)]>numbers[i]){
+                let compare = numbers[Math.floor(i/2)];
+                numbers[Math.floor(i/2)] = numbers[i];
+                numbers[i] = compare;
+                i = Math.floor(i/2)-1;
+            }
+        }
+        for(let i = 1 ; i<numbers.length;i++){
+            console.log(numbers[i]);
+        }
+        //여기까지
+        for(let i = 1 ; i<numbers.length;i++){
+            
+            document.querySelector("body").innerHTML+=numbers[i] +"<br>";
+        }
+    </script>
+</body>
+</html> 

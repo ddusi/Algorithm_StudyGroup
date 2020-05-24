@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        let answer = 0;
+        function Node(){// node 생성자 생성 && 방향성 없을때
+            this.name = [];
+            this.nextNode = [];
+            this.addEdge = (node,next) =>{// 엣지 추가
+                const nodeIdx = this.name.indexOf(node);
+                if(nodeIdx === -1){
+                    this.name.push(node);
+                    this.nextNode.push([next]);
+                }else{
+                    this.nextNode[nodeIdx].push(next);
+                };
+                const nextIdx = this.name.indexOf(next);//방향성 존재시 여기서부터 지우면 됨
+                if(nextIdx === -1){
+                    this.name.push(next);
+                    this.nextNode.push([node]);
+
+                }else{
+                    this.nextNode[nextIdx].push(node);
+                };
+            }
+        }
+
+        
+        var nodes = new Node();
+        nodes.addEdge(1,2);
+        nodes.addEdge(2,3);
+        nodes.addEdge(1,3);
+        nodes.addEdge(3,4);
+        nodes.addEdge(2,4);
+        nodes.addEdge(4,5);
+        nodes.addEdge(3,5);
+        nodes.addEdge(5,6);
+
+        console.log(nodes);
+
+        function DFScall(nodes){// 원래 노드를 건드리지 않도록 하기위한 새로운 생성자 생성
+            this.nodes = nodes.name;
+            this.nextNode = nodes.nextNode;
+            this.visitedNode = new Array(nodes.name.length); // 방문여부를 확인
+            this.order = [];// 순서입력을 위한 
+            this.findOrder = (node) =>{// 제일처음은 루트노드 입력
+                let nodeIdx = this.nodes.indexOf(node);
+                if(this.visitedNode[nodeIdx]){
+                    return ;
+                }else{
+                    this.visitedNode[nodeIdx] = true; // 방문 확인
+                    this.order.push(node); // 순서 입력
+                    this.nextNode[nodeIdx].forEach(v => {
+                        this.findOrder(v);
+                    });
+                }
+            }
+        }
+
+        // var First = new DFScall(nodes);
+        // console.log(First);
+        // First.findOrder(1);// 1번 노드가 root 
+        // console.log(First);
+        
+
+
+        function BFScall(nodes){
+            this.nodes = nodes.name;
+            this.nextNode = nodes.nextNode;
+            this.visitedNode = new Array(nodes.name.length); // 방문여부를 확인
+            this.order = [];// 순서입력을 위한 
+            this.findOrder = (node)=>{
+                this.order.push(node); // 순서 입력
+                for(let i = 0; this.order.length!==this.nodes.length; i++){
+                    const nodeIdx = this.nodes.indexOf(this.order[i]);
+                    this.visitedNode[nodeIdx] = true;//방문 확인
+                    for(let j = 0 ; j < this.nextNode[nodeIdx].length;j++){
+                        const nextIdx = this.nodes.indexOf(this.nextNode[nodeIdx][j]);
+                        if(this.visitedNode[nextIdx]){
+                        }else{
+                            this.order.push(this.nextNode[nodeIdx][j]);
+                            this.visitedNode[nextIdx] = true;//방문 확인
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // var second = new BFScall(nodes);
+        // console.log(second);
+        // second.findOrder(1);// 1번 노드가 root 
+        // console.log(second);
+        
+
+        
+
+
+
+        document.querySelector("body").innerHTML += "answer : " + answer;
+    </script>
+</body>
+</html>

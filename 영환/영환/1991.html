@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // //제출용
+        // let fs = require('fs');
+        // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
+
+        const fs =`7
+A B C
+B D .
+C E F
+E . .
+F . G
+D . .
+G . .`;
+
+// 전위 순회한 결과 : ABDCEFG // (루트) (왼쪽 자식) (오른쪽 자식)
+// 중위 순회한 결과 : DBAECFG // (왼쪽 자식) (루트) (오른쪽 자식)
+// 후위 순회한 결과 : DBEGFCA // (왼쪽 자식) (오른쪽 자식) (루트)
+        //test2 용
+//         const fs =`9
+// F B G
+// B A D
+// A . .
+// D C E
+// C . .
+// E . .
+// G . I
+// I H .
+// // H . .`;
+
+// 전위 순회: F, B, A, D, C, E, G, I, H (root, left, right)
+// 중위 순회: A, B, C, D, E, F, G, H, I (left, root, right)
+// 후위 순회: A, C, E, D, B, H, I, G, F (left, right, root)
+        document.querySelector("body").innerHTML+= `answer : ` +"<br>";
+        let inputs = fs.split("\n");
+        
+        let input = inputs.map(v=>{
+            return v.trim().split(" ");
+        })
+
+
+        //본 code
+        let numbers = [];// 전위
+        document.querySelector("body").innerHTML+="전위 : "+"<br>";
+        for(let i = 1 ; i<input.length;i++){
+            let instanceArr = [];
+            if(numbers[0]===undefined){
+                if(input[i][0]!=="."){numbers.push(input[i][0]);}
+                if(input[i][1]!=="."){numbers.push(input[i][1]);}
+                if(input[i][2]!=="."){numbers.push(input[i][2]);}
+            }else if(numbers.indexOf(input[i][0]) !== -1){
+                instanceArr = numbers.splice(numbers.indexOf(input[i][0])+1);
+                if(input[i][1]!=="."){numbers.push(input[i][1]);}
+                if(input[i][2]!=="."){numbers.push(input[i][2]);}
+                numbers = numbers.concat(instanceArr);
+            }else if(numbers.indexOf(input[i][1]) !== -1){
+                instanceArr = numbers.splice(numbers.indexOf(input[i][1])+1);
+                if(input[i][0]!=="."){numbers=[input[i][0]].concat(numbers);}
+                numbers = numbers.concat(instanceArr);
+                if(input[i][2]!=="."){numbers.push(input[i][2]);}
+            }else if(numbers.indexOf(input[i][2]) !== -1){
+                instanceArr = numbers.splice(numbers.indexOf(input[i][2])+1);
+                if(input[i][1]!=="."){numbers=[input[i][1]].concat(numbers);}
+                if(input[i][0]!=="."){numbers=[input[i][0]].concat(numbers);}
+                numbers = numbers.concat(instanceArr);
+            }else{
+                if(input[i][0]!=="."){instanceArr.push(input[i][0]);}
+                if(input[i][1]!=="."){instanceArr.push(input[i][1]);}
+                if(input[i][2]!=="."){instanceArr.push(input[i][2]);}
+                numbers = instanceArr.concat(numbers);
+            }
+            document.querySelector("body").innerHTML+=i+" : "+numbers.join("")+"<br>";
+        }
+        //test 용
+//         const fs =`7
+// A B C
+// B D .
+// E . .
+// C E F
+// F . G
+// D . .
+// G . .`;
+// 후위 순회한 결과 : DBEGFCA // (왼쪽 자식) (오른쪽 자식) (루트)
+
+        document.querySelector("body").innerHTML+="중위 : "+"<br>";
+        let numbers1 = [];// 중위
+        for(let i = 1 ; i<input.length;i++){
+            let instanceArr = [];
+            let instanceArr2 = [];
+            let answer =[];
+            if(numbers1[0]===undefined){
+                if(input[i][1]!=="."){numbers1.push(input[i][1]);}
+                if(input[i][0]!=="."){numbers1.push(input[i][0]);}
+                if(input[i][2]!=="."){numbers1.push(input[i][2]);}
+            }else if(numbers1.indexOf(input[i][0]) !== -1){
+                instanceArr = numbers1.splice(numbers1.indexOf(input[i][0]));
+                instanceArr2 = instanceArr.splice(instanceArr.indexOf(input[i][0])+1);
+                
+                if(input[i][1]!=="."){answer.push(input[i][1]);}
+                answer = answer.concat(instanceArr);
+                if(input[i][2]!=="."){answer.push(input[i][2]);}
+                answer = answer.concat(instanceArr2);
+                numbers1 = numbers1.concat(answer);
+            }else if(numbers1.indexOf(input[i][1]) !== -1){//아직 여기서부터
+                document.querySelector("body").innerHTML+="i - <br>";
+                document.querySelector("body").innerHTML+="input[i][0] : " + input[i][0] + ", idx : "+ numbers1.indexOf(input[i][0])+"<br>";
+
+                instanceArr = numbers1.splice(numbers1.indexOf(input[i][1])+1);
+                document.querySelector("body").innerHTML+= "instance2 : "+instanceArr2.join("")+"<br>";
+                document.querySelector("body").innerHTML+= "instance : "+instanceArr.join("")+"<br>";
+                document.querySelector("body").innerHTML+= "numbers : "+numbers1.join("")+"<br>";
+                
+                if(input[i][0]!=="."){numbers1=[input[i][0]].concat(numbers1);}
+                numbers1 = numbers1.concat(instanceArr);
+                if(input[i][2]!=="."){numbers1.push(input[i][2]);}
+            }else if(numbers1.indexOf(input[i][2]) !== -1){
+                instanceArr = numbers1.splice(numbers1.indexOf(input[i][2])+1);
+                if(input[i][1]!=="."){numbers1=[input[i][1]].concat(numbers1);}
+                if(input[i][0]!=="."){numbers1=[input[i][0]].concat(numbers1);}
+                numbers1 = numbers1.concat(instanceArr);
+            }else{
+                if(input[i][0]!=="."){instanceArr.push(input[i][0]);}
+                if(input[i][1]!=="."){instanceArr.push(input[i][1]);}
+                if(input[i][2]!=="."){instanceArr.push(input[i][2]);}
+                numbers1 = instanceArr.concat(numbers1);
+            }
+            document.querySelector("body").innerHTML+=i+" : "+numbers1.join("")+"<br>";
+        }
+
+
+        //test 용
+//         const fs =`7
+// A B C
+// B D .
+// E . .
+// C E F
+// F . G
+// D . .
+// G . .`;
+// 후위 순회한 결과 : DBEGFCA // (왼쪽 자식) (오른쪽 자식) (루트)
+
+        document.querySelector("body").innerHTML+="후위 : "+"<br>";
+        let numbers2 = [];// 후위
+        for(let i = 1 ; i<input.length;i++){
+            let instanceArr = [];
+            let instanceArr2 = [];
+            let answer =[];
+            if(numbers2[0]===undefined){
+                if(input[i][1]!=="."){numbers2.push(input[i][1]);}
+                if(input[i][2]!=="."){numbers2.push(input[i][2]);}
+                if(input[i][0]!=="."){numbers2.push(input[i][0]);}
+            }else if(numbers2.indexOf(input[i][0]) !== -1){
+                instanceArr = numbers2.splice(numbers2.indexOf(input[i][0]));
+                instanceArr2 = instanceArr.splice(instanceArr.indexOf(input[i][0])+1);
+                
+                if(input[i][1]!=="."){answer.push(input[i][1]);}
+                if(input[i][2]!=="."){answer.push(input[i][2]);}
+                answer = answer.concat(instanceArr);
+                answer = answer.concat(instanceArr2);
+                numbers2 = numbers2.concat(answer);
+            }else if(numbers2.indexOf(input[i][1]) !== -1){//아직 여기서부터
+                document.querySelector("body").innerHTML+="i - <br>";
+                document.querySelector("body").innerHTML+="input[i][0] : " + input[i][0] + ", idx : "+ numbers2.indexOf(input[i][0])+"<br>";
+
+                instanceArr = numbers2.splice(numbers2.indexOf(input[i][1])+1);
+                document.querySelector("body").innerHTML+= "instance2 : "+instanceArr2.join("")+"<br>";
+                document.querySelector("body").innerHTML+= "instance : "+instanceArr.join("")+"<br>";
+                document.querySelector("body").innerHTML+= "numbers : "+numbers2.join("")+"<br>";
+                
+                if(input[i][0]!=="."){numbers2=[input[i][0]].concat(numbers2);}
+                numbers2 = numbers2.concat(instanceArr);
+                if(input[i][2]!=="."){numbers2.push(input[i][2]);}
+            }else if(numbers2.indexOf(input[i][2]) !== -1){
+                instanceArr = numbers2.splice(numbers2.indexOf(input[i][2])+1);
+                if(input[i][1]!=="."){numbers2=[input[i][1]].concat(numbers2);}
+                if(input[i][0]!=="."){numbers2=[input[i][0]].concat(numbers2);}
+                numbers2 = numbers2.concat(instanceArr);
+            }else{
+                if(input[i][0]!=="."){instanceArr.push(input[i][0]);}
+                if(input[i][1]!=="."){instanceArr.push(input[i][1]);}
+                if(input[i][2]!=="."){instanceArr.push(input[i][2]);}
+                numbers2 = instanceArr.concat(numbers2);
+            }
+            document.querySelector("body").innerHTML+=i+" : "+numbers2.join("")+"<br>";
+        }
+        //여기까지
+            document.querySelector("body").innerHTML+=numbers.join("")+"<br>";
+            document.querySelector("body").innerHTML+=numbers1.join("")+"<br>";
+            document.querySelector("body").innerHTML+=numbers2.join("")+"<br>";
+    </script>
+</body>
+</html> 
