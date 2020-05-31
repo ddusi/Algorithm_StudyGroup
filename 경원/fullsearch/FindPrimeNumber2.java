@@ -63,6 +63,9 @@ public class FindPrimeNumber2 {
     }
 
     private static boolean isPrime(int num){
+        if(num == 2){
+            return true;
+        }
         if(num == 0 || num == 1 || num % 2 == 0){
             return false;
         }
