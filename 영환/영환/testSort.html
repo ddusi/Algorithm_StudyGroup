@@ -92,33 +92,37 @@ const bubbleSort = (array) =>{
     return arr;
 }
 
-// const mergeSort = (array) =>{
-//     let arr = new Array(array.length);
-//     for(let i = 0 ;  i < array.length ; i++){// initialize
-//         arr[i] = [].concat([array[i]]);
-//     }
-//     const log2 = Math.ceil(Math.log2(array.length));
-//     for (let i = 0 ; i < Math.ceil(log2) ; i++){
-//         const pow = Math.pow(2, i) 
-//         for(let n = 0; n<Math.ceil(array.length/(2*pow));n++){
-//             let firstArr = arr[pow*(2*n)];
-//             let secondArr = arr[pow*(2*n+1)];
-//             let tempArr = [];
-//             while(firstArr.length!==0||secondArr.length!==0){
-//                 if(firstArr.length===0||firstArr[0]<=secondArr[0]){
-//                     tempArr.push(firstArr[0]);
-//                     firstArr.shift();
-//                 }else{
-//                     tempArr.push(secondArr[0]);
-//                     secondArr.shift();
-//                 }
-//             }
-//             arr[pow*(2*n)] = tempArr;
-//             arr[pow*(2*n+1)]= [];
-//         }
-//     }
-//     return arr[0];
-// }
+const mergeSort = (array) =>{
+    let arr = new Array(array.length);
+    for(let i = 0 ;  i < array.length ; i++){// initialize
+        arr[i] = [].concat([array[i]]);
+    }
+    const log2 = Math.ceil(Math.log2(array.length));
+    for (let i = 0 ; i < Math.ceil(log2) ; i++){
+        const pow = Math.pow(2, i) 
+        for(let n = 0; n<Math.ceil(array.length/(2*pow));n++){
+            let firstArr = arr[pow*(2*n)];
+            let secondArr = arr[pow*(2*n+1)];
+            let tempArr = [];
+            console.log(pow*(2*n),firstArr);
+            console.log(pow*(2*n+1),secondArr);
+            while(firstArr.length!==0||(secondArr !== undefined &&secondArr.length!==0)){
+                if(secondArr === undefined || secondArr.length===0 || secondArr[0]>firstArr[0]){
+                    tempArr.push(firstArr[0]);
+                    firstArr.shift();
+                }else{
+                    tempArr.push(secondArr[0]);
+                    secondArr.shift();
+                }
+                console.log(firstArr,secondArr,tempArr);
+            }
+            console.log(tempArr)
+            arr[pow*(2*n)] = [].concat(tempArr);
+            arr[pow*(2*n+1)]= [];
+        }
+    }
+    return arr[0];
+}
 
 // /*
 // 2406851739
@@ -161,37 +165,6 @@ const heapSort = (array) =>{
     }
     return tempArr;
 }
-// //0  1 2 3 4  5 6 7  8 9 
-// //1  2 3 4 5  6 7 8  9 10 11 12 
-// /*10 4 8 5 12 2 6 11 3 9  7  1 
-// 10 - 4 8
-// 4 - 5 12
-// 8 - 2 6
-// 5 - 11 3 
-// 12 - 9 7
-// 2  - 1   
-
-// 10 
-// 10 4 
-// 10 4 8 
-// 10 4 8 5 
-// 10 5 8 4 
-// 10 5 8 4 12 
-// 10 12 8 4 5
-// 12 10 8 4 5 
-// 12 10 8 4 5 2
-// 12 10 8 4 5 2 6
-// 12 10 8 4 5 2 6 11
-// 12 10 8 11 5 2 6 4
-// 12 11 8 10 5 2 6 4 
-// 12 11 8 10 5 2 6 4 3
-// 12 11 8 10 5 2 6 4 3 9
-// 12 11 8 10 9 2 6 4 3 5
-// 12 11 8 10 9 2 6 4 3 5 7 
-// 12 11 8 10 9 2 6 4 3 5 7 1
-// 1 11 8 10 9 2 6 4 3 5 7 1 
-// */
-
 
 
 const quickSort = (array) =>{
@@ -199,7 +172,7 @@ const quickSort = (array) =>{
     const compare = (array) =>{
         let arr = [].concat(array);
         const midNum = arr[Math.floor(arr.length/2)-1];
-        if(arr.length>2){
+        if(arr.length>=2){
             let big,small;
             let tempbig = [];
             let tempsmall = [];
@@ -214,7 +187,6 @@ const quickSort = (array) =>{
             }
             big = compare(tempbig);
             small = compare(tempsmall);
-            console.log("arr",arr,"small",small,"big",big);
             small.push(midNum);
             return small.concat(big);
         }else{
@@ -224,15 +196,64 @@ const quickSort = (array) =>{
     return compare(arr);
 }
 
+const radixSort= (array) =>{
+    let arr = [].concat(array);
+    let max;
+    let digitArr = new Array(10);
+    for(let i = 0; i < digitArr.length ; i++){// initialize
+        digitArr[i] = [];
+    }
+    for(let i = 0 ; i < arr.length ; i++){
+        if(i===0 || max < arr[i]){
+            max = arr[i];
+        }
+    }
+    let maxLog = Math.log10(max)+1;// 자리수 판별
+    for (let digit = 1 ; digit <= maxLog ; digit++){
+        let digit10 = Math.pow(10,digit);
+        let tempArr = [];
+        for(let i = 0 ; i < arr.length ;i++){
+            if(digit === 1){
+                digitArr[arr[i]%digit10].push(arr[i]);
+            }else{
+                tempDigit = Math.floor((arr[i]%digit10)*10/digit10);
+                digitArr[tempDigit].push(arr[i]);
+            }
+        }
+
+        for(let i = 0 ; i < digitArr.length ; i++){
+            while(digitArr[i].length!==0){
+                tempArr.push(digitArr[i][0]);
+                digitArr[i].shift();
+            }
+        }
+        arr = [].concat(tempArr);
+    }
+
+
+    return arr;
+}
+
+
+
+
+
+
+
+
+
+
 const arr = [0,2,8,1,3,5,9,6,4,7];
 let sort =[];
-sort.push(selectSort(arr));
 sort.push(insertSort(arr));
 sort.push(bubbleSort(arr));
-// sort.push(mergeSort(arr));
+sort.push(mergeSort(arr));
 sort.push(heapSort(arr));
 sort.push(quickSort(arr));
+sort.push(radixSort(arr));
 const box = document.querySelector(".box")
+box.innerHTML = "순서대로 선택, 삽입, 버블 ,머지, 힙, 퀵, 라딕스 정렬<br/>"
+
 for(let i = 0 ; i<sort.length ; i++){
     box.innerHTML+=sort[i].join("");
     box.innerHTML+="<br/>";

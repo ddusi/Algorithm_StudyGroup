@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+               //제출용
+        //        var fs = require('fs');
+        // var input = fs.readFileSync('/dev/stdin').toString().split("\n");
+        
+        //E =15, S = 28 ,M =19
+        // test 용
+        var fs =`15 28 19`;
+        var input = fs.split("\n");
+        
+        // // test2 용
+        // var fs =`0 15`;
+        // var input = fs.split("\n");
+        
+        
+        //본 code
+        var ESM = input.map(function(v){
+            var array=v.trim().split(" ");
+            return array;
+        })
+        console.log(ESM);
+        let year = 0 ;
+        for(let i=0 ; i<600; i++){
+            year = i*15 + Number(ESM[0][0]);
+            console.log(year , year % 29, year % 20)
+            if(year % 28 === Number(ESM[0][1])-1 && year % 19 === Number(ESM[0][2])-1){
+                break;
+            }
+        }
+
+
+
+
+
+
+               //여기까지 
+        document.querySelector("body").innerText+= `answer : `;
+        document.querySelector("body").innerText+= year;
+    </script>
+</body>
+</html>
