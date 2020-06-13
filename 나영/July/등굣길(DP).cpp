@@ -8,7 +8,7 @@ using namespace std;
 
 int solution(int m, int n, vector<vector<int>> puddles) {
 
-    bool water[MAX][MAX]={true,};
+    bool water[MAX][MAX]={false,};
     for(int i=0;i<puddles.size();i++){
     	water[puddles[i][0]][puddles[i][1]]=true;
 	}
