@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // //제출용
+        // let fs = require('fs');
+        // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
+        const input = `50 10 100 20 40
+30 50 70 10 60`
+
+        
+        var temp = input.split("\n");
+        let max = 0; 
+        let memo = [{choose: 0, max : 0}];
+        var Arr = temp.map(function(v){
+            var array=v.trim().split(" ");
+            return array;
+        })
+        console.log(Arr);
+
+        let Sticker = [[],[]];
+        for(let i = 0 ; i < Arr[0].length; i++){
+            Sticker[0].push(Number(Arr[0][i]));
+            Sticker[1].push(Number(Arr[1][i]));
+        }
+        console.log(Sticker);
+        for(let i = 0 ; i < Sticker[0].length;i++){
+            if(i === 0 && Sticker[0][i] > Sticker[1][i]){
+                memo.push({choose: 0, max : Sticker[0][i]});
+            }else if(i === 0){
+                memo.push({choose: 0, max : Sticker[1][i]});
+            }else if(memo[i+1].choose===0){
+                
+            }else{
+                
+            }
+
+        }
+        console.log(memo);
+
+
+
+        let answer = 0; 
+
+        //여기까지
+            document.querySelector("body").innerHTML+=answer+"<br>";
+    </script>
+</body>
+</html> 
