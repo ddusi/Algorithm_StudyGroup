@@ -10,13 +10,22 @@
         // //제출용
         // let fs = require('fs');
         // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
-        const n = 99999;
+        const n = 100000;
         let memo = new Array(100001);        
-        console.log(memo);
         for(let i = 0 ; i < n+1 ; i++){
-            
+            let sqrt = Math.sqrt(i);
+            if(sqrt === Math.floor(sqrt)){
+                memo[i] = 1;
+            }else{
+                memo[i]=i;
+                for(let j = 1 ; j <= i/2 ; j++ ){
+                    if(memo[j]===1){
+                        memo[i]= Math.min(memo[i-j]+memo[j],memo[i]);
+                    }
+                }
+            }
         }
-
+        console.log(memo);
 
         let answer = 0; 
 

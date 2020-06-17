@@ -8,42 +8,55 @@
 <body>
     <script>
         // //제출용
-        // let fs = require('fs');
-        // let input = fs.readFileSync('/dev/stdin').toString().split("\n");
-        const input = `50 10 100 20 40
-30 50 70 10 60`
+        let fs = require('fs');
+        let input = fs.readFileSync('/dev/stdin',"utf8").trim().split("\n");
+//         const input = `2
+// 5
+// 50 10 100 20 40
+// 30 50 70 10 60
+// 7
+// 10 30 10 50 100 20 40
+// 20 40 30 50 60 20 80`
 
+        function findCost(Sticker){     
+            let memo = [[],[]];
+            memo[0].push(Sticker[0][0]);
+            memo[1].push(Sticker[1][0]);
+            memo[0].push(memo[1][0]+Sticker[0][1]);
+            memo[1].push(memo[0][0]+Sticker[1][1]);
+            for(let i = 2 ; i < Sticker[0].length;i++){
+                memo[0].push(Sticker[0][i]+Math.max(memo[1][i-1],memo[1][i-2]));
+                memo[1].push(Sticker[1][i]+Math.max(memo[0][i-1],memo[0][i-2]));            
+            }
+            console.log(Math.max(memo[1][memo[0].length-1],memo[0][memo[0].length-1]));
+        }
         
         var temp = input.split("\n");
-        let max = 0; 
-        let memo = [{choose: 0, max : 0}];
         var Arr = temp.map(function(v){
             var array=v.trim().split(" ");
             return array;
         })
-        console.log(Arr);
 
-        let Sticker = [[],[]];
-        for(let i = 0 ; i < Arr[0].length; i++){
-            Sticker[0].push(Number(Arr[0][i]));
-            Sticker[1].push(Number(Arr[1][i]));
-        }
-        console.log(Sticker);
-        for(let i = 0 ; i < Sticker[0].length;i++){
-            if(i === 0 && Sticker[0][i] > Sticker[1][i]){
-                memo.push({choose: 0, max : Sticker[0][i]});
-            }else if(i === 0){
-                memo.push({choose: 0, max : Sticker[1][i]});
-            }else if(memo[i+1].choose===0){
-                
-            }else{
-                
+        const n = Number(Arr[0][0]);
+        Arr.shift();
+        for(let i = 0 ; i < n ; i++){
+            let length = Number(Arr[0][0]);
+            let Sticker = [[],[]];
+            Arr.shift();
+            for(let i = 0 ; i < Arr[0].length; i++){
+                Sticker[0].push(Number(Arr[0][i]));
+                Sticker[1].push(Number(Arr[1][i]));
             }
-
+            Arr.shift();
+            Arr.shift();
+            findCost(Sticker);
         }
-        console.log(memo);
 
 
+
+
+
+        // let Sticker = [[],[]];
 
         let answer = 0; 
 
