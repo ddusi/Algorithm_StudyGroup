@@ -33,8 +33,9 @@ Taewhan 50 60 90`;
         // // test2 용
         // var fs =`0 15`;
         // var input = fs.split("\n");
-        
-        
+let time = new Date()
+let timeMs = time.getMilliseconds();
+         
 const selectSort=(array)=>{
     let arr = [].concat(array);
     for(let i = 0 ; i < arr.length ; i++){
@@ -51,6 +52,10 @@ const selectSort=(array)=>{
             arr[i] = min;
         }
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("selectSort의 걸린시간 : " + (tmpTimeMs - timeMs));
     return arr;
 } 
 
@@ -73,6 +78,11 @@ const insertSort =(array)=>{
             }
         }
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("insertSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
     return arr;
 }
  
@@ -89,6 +99,11 @@ const bubbleSort = (array) =>{
             }
         }
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("bubbleSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
     return arr;
 }
 
@@ -104,8 +119,6 @@ const mergeSort = (array) =>{
             let firstArr = arr[pow*(2*n)];
             let secondArr = arr[pow*(2*n+1)];
             let tempArr = [];
-            console.log(pow*(2*n),firstArr);
-            console.log(pow*(2*n+1),secondArr);
             while(firstArr.length!==0||(secondArr !== undefined &&secondArr.length!==0)){
                 if(secondArr === undefined || secondArr.length===0 || secondArr[0]>firstArr[0]){
                     tempArr.push(firstArr[0]);
@@ -114,13 +127,16 @@ const mergeSort = (array) =>{
                     tempArr.push(secondArr[0]);
                     secondArr.shift();
                 }
-                console.log(firstArr,secondArr,tempArr);
             }
-            console.log(tempArr)
             arr[pow*(2*n)] = [].concat(tempArr);
             arr[pow*(2*n+1)]= [];
         }
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("mergeSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
     return arr[0];
 }
 
@@ -163,6 +179,11 @@ const heapSort = (array) =>{
         arr = [arr[arr.length-1]].concat(arr);
         arr.pop();
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("heapSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
     return tempArr;
 }
 
@@ -193,6 +214,11 @@ const quickSort = (array) =>{
             return arr;
         }
     }
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("quickSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
     return compare(arr);
 }
 
@@ -230,6 +256,11 @@ const radixSort= (array) =>{
         arr = [].concat(tempArr);
     }
 
+    let tmpTime = new Date()
+    let tmpTimeMs = tmpTime.getMilliseconds();
+    console.log(timeMs , tmpTimeMs)
+    console.log("radixSort의 걸린시간 : " + (tmpTimeMs - timeMs));
+    timeMs = tmpTimeMs;
 
     return arr;
 }
@@ -245,6 +276,7 @@ const radixSort= (array) =>{
 
 const arr = [0,2,8,1,3,5,9,6,4,7];
 let sort =[];
+sort.push(selectSort(arr));
 sort.push(insertSort(arr));
 sort.push(bubbleSort(arr));
 sort.push(mergeSort(arr));
