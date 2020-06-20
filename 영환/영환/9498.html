@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+
+               //제출용
+        var fs = require('fs');
+        var input = fs.readFileSync('/dev/stdin').toString().trim();
+
+        //test용
+        // let input = `100`;
+
+        if(Number(input)>89){
+            console.log("A");
+        }else if(Number(input)>79){
+            console.log("B");
+        }else if(Number(input)>69){
+            console.log("C");
+        }else if(Number(input)>59){
+            console.log("D");
+        }else{
+            console.log("F");
+        }
+
+
+
+
+
+
+               //여기까지 
+        document.querySelector("body").innerText+= `answer : `;
+        document.querySelector("body").innerText+= year;
+    </script>
+</body>
+</html>

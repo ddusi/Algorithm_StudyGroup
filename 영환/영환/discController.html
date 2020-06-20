@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            color: #fff;
+            position: relative;
+        }
+        .box span{
+            text-align: center;
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            position: relative;
+            top:50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box"><span>1</span></div>
+    <!-- <script src="./winner.js"></script> -->
+    <script>
+        solution([[0, 9], [0, 4], [0, 5], [0, 7], [0, 3]]);
+
+        function solution(jobs) {
+    var answer = 0;
+    let array = [];
+    let now = 0,time=0; 
+    jobs.sort(function(a, b) { // 오름차순
+        return a[1] - b[1];   
+    });
+    jobs.sort(function(a, b) { // 오름차순
+        return a[0] - b[0];   
+    });
+    let il = [].concat(jobs);
+    while(il.length!==0 || array.length !== 0){
+        if(il.length!==0 && now <= il[0][0]  && array.length === 0){
+            now = il[0][0]+il[0][1];
+            time += il[0][1];
+            il.shift();
+        }else if(il.length!==0 && now > il[0][0]){
+            array.push(il[0]);
+            il.shift();
+        }else{
+            array.sort((a,b)=>a[1]-b[1]);
+            time += now + array[0][1] - array[0][0];
+            now += array[0][1];
+            array.shift();
+        }
+    }
+    console.log(time/jobs.length)
+    return Math.floor(time/jobs.length);
+    }
+    </script>
+</body>
+</html>
