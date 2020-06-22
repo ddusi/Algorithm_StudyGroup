@@ -27,54 +27,10 @@
 
     <div class="box"><span>1</span></div>
     <!-- <script src="./winner.js"></script> -->
-    <script src="./priorityQue.js"></script>
+    <script src="./joystick.js"></script>
     
     <script>
-    function solution(baseball) {
-        var answer = [];
-        let useNum = new Array(10)
-        let strike = Array.apply(null, Array(baseball.length)).map(Number.prototype.valueOf,0);
-        let ball = Array.apply(null, Array(baseball.length)).map(Number.prototype.valueOf,0);
-        let num = "";
-        const check = (strike,ball,useNum,num)=>{
-            if(num.length!==3){
-                for(let i = 0 ; i < 10 ; i++){
-                    let tmpUseNum = [].concat(useNum);
-                    let tempNum = num;
-                    let tmpStrike = [].concat(strike);
-                    let tmpBall = [].concat(ball);
-                    if(useNum[i] !== true){
-                        tempNum += i;
-                        tmpUseNum[i] = true;
-                        let idx = tempNum.length-1;
-                        for(let j = 0 ; j <baseball.length; j++){
-                            if(String(baseball[j][0])[idx]===""+i){
-                                tmpStrike[j] += 1;
-                            }else if(String(baseball[j][0]).indexOf(""+i)!==-1){
-                                tmpBall[j] += 1;
-                            }
-                        }
-                        check(tmpStrike,tmpBall,tmpUseNum,tempNum);    
-                    }
-                }
-            }else{
-                console.log(num,strike,ball)
-                for(let i = 0 ; i < baseball.length ; i++){
-                    if(strike[i]!==baseball[i][1]||ball[i]!==baseball[i][2]){
-                        return ;
-                    }
-                    
-                }
-                answer.push(num);
-                
-            }
-        }
-        useNum[0]= true;
-        check(strike,ball,useNum,"");
-        return answer.length;
-    }
-    solution([[123, 1, 1], [356, 1, 0], [327, 2, 0], [489, 0, 1]]);
-    
+        console.log(solution("JAN"));
     </script>
 </body>
 </html>
