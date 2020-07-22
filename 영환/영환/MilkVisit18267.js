@@ -23,7 +23,7 @@
         const vertax = inputs.slice(2,2+node-1);
         const needs = inputs.slice(1+node);
         
-        
+        console.log(friends,farmMilk,vertax,needs);        
         let graph = new Array(node+1);
         for(let i = 0 ; i < vertax.length ; i++){
             graph[Number(vertax[i][0])]===undefined? graph[Number(vertax[i][0])]=[Number(vertax[i][1])]:graph[Number(vertax[i][0])].includes(Number(vertax[i][1]))? null:graph[Number(vertax[i][0])].push(Number(vertax[i][1]));
